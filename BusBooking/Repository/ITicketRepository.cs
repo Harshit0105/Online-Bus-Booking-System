@@ -9,9 +9,14 @@ namespace BusBooking.Repository
     interface ITicketRepository
     {
         Ticket GetTicket(int Id);
+
         Ticket Add(Ticket ticket);
+
         Ticket Delete(int Id);
+
         Ticket Update(Ticket ticketChanges);
+
         IEnumerable<Ticket> GetAllTickets();
+
     }
 }
