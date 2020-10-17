@@ -1,13 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace BusBooking.Models
 {
     public class Bus
     {
+        public enum B_Type
+        {
+            Seeting,
+            Sleeping,
+            SeetingAC,
+            SleepingAC
+        }
         [Required]
         [Key]
         public int Bus_Id { get; set; }
@@ -18,7 +26,7 @@ namespace BusBooking.Models
         [Required]
         public int Number_Of_Seats { get; set; }
         [Required]
-        public DateTime Source_Time{get;set;}
+        public DateTime Source_Time { get; set; }
         [Required]
         public DateTime Destination_Time { get; set; }
         [Required]
@@ -27,12 +35,5 @@ namespace BusBooking.Models
         public Boolean Available { get; set; }
         [Required]
         public B_Type Bus_Type { get; set; }
-        public enum B_Type
-        {
-            Seeting,
-            Sleeping,
-            SeetingAC,
-            SleepingAC
-        }
     }
 }
