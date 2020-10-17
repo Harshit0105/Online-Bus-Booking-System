@@ -1,0 +1,68 @@
+﻿@model BusBooking.Models.Bus
+
+@{
+    ViewData["Title"] = "Add";
+}
+
+<h1>Add</h1>
+
+<h4>Bus</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Add">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Souce_City" class="control-label"></label>
+                <input asp-for="Souce_City" class="form-control" />
+                <span asp-validation-for="Souce_City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Destination_City" class="control-label"></label>
+                <input asp-for="Destination_City" class="form-control" />
+                <span asp-validation-for="Destination_City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Number_Of_Seats" class="control-label"></label>
+                <input asp-for="Number_Of_Seats" class="form-control" />
+                <span asp-validation-for="Number_Of_Seats" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Source_Time" class="control-label"></label>
+                <input asp-for="Source_Time" class="form-control" />
+                <span asp-validation-for="Source_Time" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Destination_Time" class="control-label"></label>
+                <input asp-for="Destination_Time" class="form-control" />
+                <span asp-validation-for="Destination_Time" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Available" /> @Html.DisplayNameFor(model => model.Available)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bus_Type" class="control-label"></label>
+                <select asp-for="Bus_Type" asp-items="@Html.GetEnumSelectList<Bus.B_Type>()" class="form-control"></select>
+                <span asp-validation-for="Bus_Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
