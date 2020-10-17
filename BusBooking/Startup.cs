@@ -12,6 +12,8 @@ using BusBooking.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using BusBooking.Repository;
+using BusBooking.Models;
 
 namespace BusBooking
 {
@@ -34,6 +36,9 @@ namespace BusBooking
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddScoped<IBusRepository, SQLBusRepository>();
+            services.AddScoped<ISeatRepository, SQLSeatRepository>();
+            services.AddScoped<ITicketRepository, SQLTicketRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,6 +65,7 @@ namespace BusBooking
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapDefaultControllerRoute();
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

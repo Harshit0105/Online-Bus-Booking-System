@@ -39,7 +39,7 @@ namespace BusBooking.Repository
             return context.Seats.Find(Id);
         }
 
-        IEnumerable<Seat> ISeatRepository.GetAllSeats)
+        IEnumerable<Seat> ISeatRepository.GetAllSeats()
         {
             return context.Seats;
         }
