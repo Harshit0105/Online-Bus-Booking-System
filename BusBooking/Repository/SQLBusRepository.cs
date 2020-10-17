@@ -40,7 +40,7 @@ namespace BusBooking.Repository
             return context.Buses.Find(Id);
         }
 
-        IEnumerable<Bus> IBusRepository.GetBuses()
+        IEnumerable<Bus> IBusRepository.GetAllBuses()
         {
             return context.Buses;
         }
