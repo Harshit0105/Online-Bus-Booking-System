@@ -22,6 +22,9 @@
                 @Html.DisplayNameFor(model => model.Source_Time)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Destination_Time)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Available)
             </th>
             <th>
@@ -41,6 +44,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Source_Time.TimeOfDay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Destination_Time.TimeOfDay)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Available)
