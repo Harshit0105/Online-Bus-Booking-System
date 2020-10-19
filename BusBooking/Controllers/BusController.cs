@@ -43,7 +43,9 @@ namespace BusBooking.Controllers
                 Destination_Time = bus.Destination_Time,
                 Price = bus.Price,
                 Available = bus.Available,
-                Bus_Type = bus.Bus_Type
+                Bus_Type = bus.Bus_Type,
+                Bus_Name=bus.Bus_Name,
+                Bus_No=bus.Bus_No
             };
             return View(newBus);
         }
@@ -62,8 +64,10 @@ namespace BusBooking.Controllers
                     bus.Price = model.Price;
                     bus.Available = model.Available;
                     bus.Bus_Type = model.Bus_Type;
+                    bus.Bus_Name = model.Bus_Name;
+                    bus.Bus_No = model.Bus_No;
                 Bus updatedBus = _busRepo.Update(bus);
-                return RedirectToAction();
+                return RedirectToAction("index");
             }
             return View(model);
         } 
@@ -87,7 +91,9 @@ namespace BusBooking.Controllers
                     Destination_Time = model.Destination_Time,
                     Price = model.Price,
                     Available = model.Available,
-                    Bus_Type = model.Bus_Type
+                    Bus_Type = model.Bus_Type,
+                    Bus_No=model.Bus_No,
+                    Bus_Name=model.Bus_Name
                 };
                 _busRepo.Add(newBus);
                 return RedirectToAction("index");
