@@ -11,9 +11,13 @@
         {
             Layout = "/Views/Admin/_LayoutAdmin.cshtml";
         }
+        else
+        {
+            Layout = "/Views/Home/_LayoutHome.cshtml";
+        }
     }
     else
     {
-        Layout = "/Views/Shared/_Layout.cshtml";
+        Layout = "/Views/Home/_LayoutHome.cshtml";
     }
 }

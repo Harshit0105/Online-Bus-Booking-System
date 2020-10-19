@@ -19,6 +19,11 @@ namespace BusBooking.Models
         [Required]
         [Key]
         public int Bus_Id { get; set; }
+
+        [Required]
+        public string Bus_Name { get; set; }
+        [Required]
+        public string Bus_No { get; set; }
         [Required]
         public string Souce_City { set; get; }
         [Required]

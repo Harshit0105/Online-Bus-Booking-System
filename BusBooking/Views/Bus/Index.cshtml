@@ -1,15 +1,23 @@
 ﻿@model IEnumerable<BusBooking.Models.Bus>
 
 @{
-  //  ViewData["Title"] = "Index";
+    ViewData["Title"] = "Index";
 }
 
+<h1>Index</h1>
+
 <p>
-    <a asp-action="Add">Add New</a>
+    <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Bus_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bus_No)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Souce_City)
             </th>
@@ -21,6 +29,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Destination_Time)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Available)
@@ -35,6 +46,12 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.Bus_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bus_No)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Souce_City)
             </td>
             <td>
@@ -45,6 +62,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Destination_Time.TimeOfDay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Available)
