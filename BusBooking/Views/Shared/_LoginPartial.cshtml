@@ -5,8 +5,8 @@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
-        var user = await UserManager.FindByEmailAsync(User.Identity.Name);
-        var roles = await UserManager.GetRolesAsync(user);
+        //var user = await UserManager.FindByEmailAsync(User.Identity.Name);
+        //var roles = await UserManager.GetRolesAsync(user);
         
        /* if (roles.Contains("Admin"))
         {
