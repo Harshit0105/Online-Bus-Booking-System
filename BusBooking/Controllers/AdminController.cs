@@ -17,6 +17,10 @@ namespace BusBooking.Controllers
             this.roleManager = roleManager;
         }
 
+        public ActionResult Index()
+        {
+            return View();
+        }
 
         [HttpGet]
         public ActionResult CreateRole()
