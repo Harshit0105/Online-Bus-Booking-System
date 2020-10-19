@@ -34,5 +34,10 @@ namespace BusBooking.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        [HttpGet]
+        public ViewResult SearchBus()
+        {
+            return View();
+        }
     }
 }
