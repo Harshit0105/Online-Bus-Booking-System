@@ -1,3 +1,19 @@
-﻿@{
-    Layout = "/Views/Shared/_Layout.cshtml";
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    if (SignInManager.IsSignedIn(User))
+    {
+        var user = await UserManager.FindByEmailAsync(User.Identity.Name);
+        var roles = await UserManager.GetRolesAsync(user);
+        if (roles.Contains("Admin"))
+        {
+            Layout = "/Views/Admin/_LayoutAdmin.cshtml";
+        }
+    }
+    else
+    {
+        Layout = "/Views/Shared/_Layout.cshtml";
+    }
 }
