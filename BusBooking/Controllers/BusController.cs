@@ -84,8 +84,8 @@ namespace BusBooking.Controllers
             {
                 Bus newBus = new Bus
                 {
-                    Souce_City = model.Souce_City,
-                    Destination_City = model.Destination_City,
+                    Souce_City = model.Souce_City.ToUpper(),
+                    Destination_City = model.Destination_City.ToUpper(),
                     Number_Of_Seats = model.Number_Of_Seats,
                     Source_Time = model.Source_Time,
                     Destination_Time = model.Destination_Time,
@@ -96,6 +96,20 @@ namespace BusBooking.Controllers
                     Bus_Name=model.Bus_Name
                 };
                 _busRepo.Add(newBus);
+                Bus newBus2 = new Bus
+                {
+                    Souce_City = model.Destination_City.ToUpper(),
+                    Destination_City = model.Souce_City.ToUpper(),
+                    Number_Of_Seats = model.Number_Of_Seats,
+                    Source_Time = model.Source_Time.AddHours(1),
+                    Destination_Time = model.Destination_Time.AddHours(1),
+                    Price = model.Price,
+                    Available = model.Available,
+                    Bus_Type = model.Bus_Type,
+                    Bus_No = model.Bus_No,
+                    Bus_Name = model.Bus_Name
+                };
+                _busRepo.Add(newBus2);
                 return RedirectToAction("index");
             }
             return View();

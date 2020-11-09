@@ -22,7 +22,6 @@ namespace BusBooking.Repository
             context.Buses.Add(bus);
             context.SaveChanges();
             return bus;
-             
         }
          
        Bus IBusRepository.Delete(int Id)
@@ -61,8 +60,8 @@ namespace BusBooking.Repository
                 .Select(n =>
                 new SelectListItem
                 {
-                    Value = n.Souce_City.ToString(),
-                    Text=n.Souce_City.ToString(),
+                    Value = n.Souce_City.ToString().ToUpper(),
+                    Text=n.Souce_City.ToString().ToUpper(),
                 }).ToList();
             var soucetip = new SelectListItem()
             {
@@ -70,11 +69,12 @@ namespace BusBooking.Repository
                 Text = "Select Source City",
             };
             source.Insert(0, soucetip);
+            source=source.Distinct().ToList();
             return new SelectList(source, "Value", "Text");
         }
         IEnumerable<SelectListItem> IBusRepository.getDestinationCity()
         {
-            List<SelectListItem> source = this.context.Buses.AsNoTracking()
+            List<SelectListItem> destination = this.context.Buses.AsNoTracking()
            .OrderBy(n => n.Destination_City)
            .Select(n =>
            new SelectListItem
@@ -82,13 +82,14 @@ namespace BusBooking.Repository
                Value = n.Destination_City.ToString(),
                Text = n.Destination_City.ToString(),
            }).ToList();
-            var soucetip = new SelectListItem()
+            var destinationtip = new SelectListItem()
             {
                 Value = null,
                 Text = "Select Destination City",
             };
-            source.Insert(0, soucetip);
-            return new SelectList(source, "Value", "Text");
+            destination.Insert(0, destinationtip);
+            destination = destination.Distinct().ToList();
+            return new SelectList(destination, "Value", "Text");
         }
     }
 }
