@@ -1,5 +1,6 @@
 ﻿using BusBooking.Models;
 using System;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,7 +12,8 @@ namespace BusBooking.Repository
         Bus GetBus(int Id);
 
         IEnumerable<Bus> GetAllBuses();
-
+        IEnumerable<SelectListItem> getSourceCity();
+        IEnumerable<SelectListItem> getDestinationCity();
         Bus Add(Bus bus);
 
         Bus Update(Bus busChanges);

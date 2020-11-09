@@ -6,17 +6,21 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using BusBooking.Models;
+using BusBooking.ViewModel;
 using Microsoft.AspNetCore.Authorization;
+using BusBooking.Repository;
 
 namespace BusBooking.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IBusRepository _busRepo;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger,IBusRepository busrepo)
         {
             _logger = logger;
+            _busRepo = busrepo;
         }
 
         public IActionResult Index()
@@ -37,7 +41,15 @@ namespace BusBooking.Controllers
         [HttpGet]
         public ViewResult SearchBus()
         {
-            return View();
+            var sourceCity = this._busRepo.getSourceCity();
+            var destinationCity = this._busRepo.getDestinationCity();
+            var busSearch = new BusSearchViewModel()
+            {
+                SourceCity = sourceCity,
+                DestinationCity=destinationCity,
+            };
+            Console.WriteLine(sourceCity);
+            return View(busSearch);
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using BusBooking.Data;
 using BusBooking.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,6 +53,42 @@ namespace BusBooking.Repository
             bus.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             context.SaveChanges();
             return busChanges;
+        }
+        IEnumerable<SelectListItem> IBusRepository.getSourceCity()
+        {
+            List<SelectListItem> source = this.context.Buses.AsNoTracking()
+                .OrderBy(n => n.Souce_City)
+                .Select(n =>
+                new SelectListItem
+                {
+                    Value = n.Souce_City.ToString(),
+                    Text=n.Souce_City.ToString(),
+                }).ToList();
+            var soucetip = new SelectListItem()
+            {
+                Value = null,
+                Text = "Select Source City",
+            };
+            source.Insert(0, soucetip);
+            return new SelectList(source, "Value", "Text");
+        }
+        IEnumerable<SelectListItem> IBusRepository.getDestinationCity()
+        {
+            List<SelectListItem> source = this.context.Buses.AsNoTracking()
+           .OrderBy(n => n.Destination_City)
+           .Select(n =>
+           new SelectListItem
+           {
+               Value = n.Destination_City.ToString(),
+               Text = n.Destination_City.ToString(),
+           }).ToList();
+            var soucetip = new SelectListItem()
+            {
+                Value = null,
+                Text = "Select Destination City",
+            };
+            source.Insert(0, soucetip);
+            return new SelectList(source, "Value", "Text");
         }
     }
 }
