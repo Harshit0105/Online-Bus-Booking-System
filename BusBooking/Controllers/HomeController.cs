@@ -51,5 +51,29 @@ namespace BusBooking.Controllers
             Console.WriteLine(sourceCity);
             return View(busSearch);
         }
+        [HttpPost]
+        public IActionResult SearchBus(BusSearchViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var busFound = this._busRepo.GetBusesByCity(model.SelectedSourceCity, model.SelectedDestinationCity);
+                return View("BusFound",busFound);
+            }
+            return View(model);
+            var sourceCity = this._busRepo.getSourceCity();
+            var destinationCity = this._busRepo.getDestinationCity();
+            var busSearch = new BusSearchViewModel()
+            {
+                SourceCity = sourceCity,
+                DestinationCity = destinationCity,
+            };
+            Console.WriteLine(sourceCity);
+            return View(busSearch);
+        }
+        [HttpGet]
+        public IActionResult BusFound()
+        {
+            return View();
+        }
     }
 }

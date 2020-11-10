@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "SearchBus";
 }
-@{ 
+@{
     Layout = "_LayoutHome";
 }
 
@@ -30,7 +30,7 @@
             <div class="form-group">
                 <div class="col-md">
                     <label asp-for="DateToTravel" class="control-label"></label>
-                    <input type="date" asp-for="DateToTravel" class="form-control" />
+                    <input type="date" id="myDatePicker" asp-for="DateToTravel" class="form-control" />
                     <span asp-validation-for="DateToTravel" class="text-danger"></span>
                 </div>
             </div>
@@ -40,3 +40,12 @@
         </form>
     </div>
 </div>
+@section Scripts {
+    <script type="text/javascript">
+        var current = new Date();
+        console.log(current);
+        var datePicker = document.getElementById("myDatePicker");
+        datePicker.setAttribute("min", current.toDateString());
+        datePicker.setAttribute("max", current.toDateString());
+    </script>
+}

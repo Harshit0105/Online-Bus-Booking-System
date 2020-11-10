@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -69,7 +70,7 @@ namespace BusBooking.Repository
                 Text = "Select Source City",
             };
             source.Insert(0, soucetip);
-            source=source.Distinct().ToList();
+            source = source.GroupBy(x => x.Text).Select(x=>x.First()).ToList();
             return new SelectList(source, "Value", "Text");
         }
         IEnumerable<SelectListItem> IBusRepository.getDestinationCity()
@@ -88,8 +89,17 @@ namespace BusBooking.Repository
                 Text = "Select Destination City",
             };
             destination.Insert(0, destinationtip);
-            destination = destination.Distinct().ToList();
+            destination = destination.GroupBy(x => x.Text).Select(x => x.First()).ToList();
             return new SelectList(destination, "Value", "Text");
+        }
+
+        IEnumerable<Bus> IBusRepository.GetBusesByCity(string source, string destination)
+        {
+            List<Bus> buses = this.context.Buses.AsNoTracking()
+                .Where(n => (n.Souce_City.Equals(source) && n.Destination_City.Equals(destination)) && (n.Available==true))
+                .Select(n => n)
+                .ToList();
+            return buses;
         }
     }
 }

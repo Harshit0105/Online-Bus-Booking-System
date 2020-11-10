@@ -118,7 +118,7 @@ namespace BusBooking.Migrations
                     b.Property<float>("Price")
                         .HasColumnType("real");
 
-                    b.Property<string>("Souce_City")
+                    b.Property<string>("Source_City")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

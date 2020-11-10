@@ -10,7 +10,7 @@ namespace BusBooking.Repository
     public interface IBusRepository
     {
         Bus GetBus(int Id);
-
+        IEnumerable<Bus> GetBusesByCity(string source,string  destination);
         IEnumerable<Bus> GetAllBuses();
         IEnumerable<SelectListItem> getSourceCity();
         IEnumerable<SelectListItem> getDestinationCity();
