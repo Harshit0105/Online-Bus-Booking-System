@@ -17,5 +17,6 @@ namespace BusBooking.Repository
         Seat Update(Seat seatChanges);
 
         IEnumerable<Seat> GetAllSeats();
+        IEnumerable<Seat> GetSeatsUsingDateAndBus(DateTime date,int bus_id);
     }
 }

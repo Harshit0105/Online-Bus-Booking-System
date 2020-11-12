@@ -23,6 +23,6 @@ namespace BusBooking.ViewModel
 
         [Required]
         [Display(Name = "Date")]
-        public DateTime? DateToTravel { get; set; }
+        public DateTime DateToTravel { get; set; }
     }
 }

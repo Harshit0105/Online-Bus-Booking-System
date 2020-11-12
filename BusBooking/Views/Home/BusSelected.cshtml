@@ -1,0 +1,51 @@
+﻿@model BusBooking.ViewModel.SeatViewModel;
+@{
+    ViewData["Title"] = "BusSelected";
+}
+@{
+    Layout = "_LayoutHome";
+}
+@section Styles{
+    <link href="~/css/BusSelected.css" type="text/css" rel="stylesheet">
+}
+
+<p>
+    <a asp-action="SearchBus">Back</a>
+</p>
+@{
+    <ul class="showcase">
+        <li>
+            <div class="seat"></div>
+            <small>N/A</small>
+        </li>
+        <li>
+            <div class="seat selected"></div>
+            <small>Selected</small>
+        </li>
+        <li>
+            <div class="seat occupied"></div>
+            <small>Occupied</small>
+        </li>
+    </ul>
+    <form asp-action="BusSelected" method="post">
+        <div class="containerSeat">
+            <div class="row">
+                @for (var i = 1; i <= Model.bus.Number_Of_Seats; i++)
+                {
+                    <div class="seat" style="text-align: center;" onclick="checkedFun(@i)" id="@i"><input id="@i" style="display:none" type="checkbox" /><p style="color:white;margin:auto;">@i</p></div>
+                }
+            </div>
+        </div>
+        <button class="btn btn-block btn-primary" type="submit">Confirm</button>
+    </form>
+}
+@section Scripts{ 
+    <script>
+        function checkedFun(id) {
+            console.log(id);
+            var checkBox = document.getElementById(id);
+            console.log(checkBox.nodeValue);
+            checkBox.classList.toggle('selected');
+        }
+    </script>
+}

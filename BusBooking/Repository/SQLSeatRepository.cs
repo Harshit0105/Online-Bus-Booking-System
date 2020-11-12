@@ -1,5 +1,6 @@
 ﻿using BusBooking.Data;
 using BusBooking.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,6 +51,15 @@ namespace BusBooking.Repository
             seat.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             context.SaveChanges();
             return seatChanges;
+        }
+
+        IEnumerable<Seat> ISeatRepository.GetSeatsUsingDateAndBus(DateTime date, int bus_id)
+        {
+            var seats = this.context.Seats.AsNoTracking()
+                .Where(n => n.Bus.Bus_Id == bus_id && n.date == date)
+                .Select(n => n)
+                .ToList();
+            return seats;
         }
     }
 }

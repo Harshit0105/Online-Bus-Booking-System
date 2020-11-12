@@ -44,8 +44,18 @@
     <script type="text/javascript">
         var current = new Date();
         console.log(current);
+        var minDay = current.getDate()+1;
+        var minMonth = ("0" + (current.getMonth() + 1)).slice(-2);
+        var minYear = current.getFullYear();
+        var minDate = minYear + '-' + minMonth + '-' + minDay;
+        current.setDate(current.getDate() + 7);
+        var maxDay = current.getDate();
+        var maxMonth = ("0" + (current.getMonth() + 1)).slice(-2);
+        var maxYear = current.getFullYear();
+        var maxDate = maxYear + '-' + maxMonth + '-' + maxDay;
         var datePicker = document.getElementById("myDatePicker");
-        datePicker.setAttribute("min", current.toDateString());
-        datePicker.setAttribute("max", current.toDateString());
+        datePicker.setAttribute('value', minDate);
+        datePicker.setAttribute('min', minDate);
+        datePicker.setAttribute('max', maxDate);
     </script>
 }

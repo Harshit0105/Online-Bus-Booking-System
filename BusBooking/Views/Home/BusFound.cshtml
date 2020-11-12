@@ -1,55 +1,50 @@
-﻿@model IEnumerable<BusBooking.Models.Bus>
+﻿@model BusBooking.ViewModel.BusFoundViewModel
 
 @{
     ViewData["Title"] = "BusFound";
+    //var buses = Model.busFound as IEnumerable<BusBooking.Models.Bus>;
 }
 @{
     Layout = "_LayoutHome";
 }
-
-<h1>BusFound</h1>
-
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="SearchBus">Back</a>
+</p>
+<p>
+    Date: @Model.dateToTravel.ToString();
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Bus_Name)
+                Bus Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Bus_No)
+                Bus No
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Souce_City)
+                Source City
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Destination_City)
+                Destination City
+            </th>          
+            <th>
+                Departure Time
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Number_Of_Seats)
+                Arrival Time
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Source_Time)
+                Price
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Destination_Time)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Available)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Bus_Type)
+                Type
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.busFound)
         {
             <tr>
                 <td>
@@ -65,25 +60,21 @@
                     @Html.DisplayFor(modelItem => item.Destination_City)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Number_Of_Seats)
+                    @Html.DisplayFor(modelItem => item.Source_Time.TimeOfDay)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Source_Time)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Destination_Time)
+                    @Html.DisplayFor(modelItem => item.Destination_Time.TimeOfDay)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Available)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.Bus_Type)
                 </td>
-
+                <td>
+                    <a asp-action="BusSelected" asp-route-id=@item.Bus_Id asp-route-date=@Model.dateToTravel>Book Now</a>
+                </td>
             </tr>
         }
-    </tbody>
+        </tbody>
 </table>

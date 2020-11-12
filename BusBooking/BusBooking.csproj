@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <Content Remove="Areas\Identity\Pages\_Layout.cshtml" />
+    <Content Remove="wwwroot\js\BusSelected.js" />
   </ItemGroup>
 
   <ItemGroup>
