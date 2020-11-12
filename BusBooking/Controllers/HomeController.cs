@@ -10,20 +10,28 @@ using BusBooking.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using BusBooking.Repository;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 
 namespace BusBooking.Controllers
 {
     public class HomeController : Controller
     {
+
         private readonly ILogger<HomeController> _logger;
         private readonly IBusRepository _busRepo;
         private readonly ISeatRepository _seatRepo;
+        private readonly ITicketRepository _ticketRepo;
+        private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public HomeController(ILogger<HomeController> logger,IBusRepository busrepo, ISeatRepository seatrepo)
+        public HomeController(ITicketRepository ticketRepo,ILogger<HomeController> logger,IBusRepository busrepo, ISeatRepository seatrepo, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
         {
             this._logger = logger;
             this._busRepo = busrepo;
             this._seatRepo = seatrepo;
+            this._ticketRepo = ticketRepo;
+            this.signInManager = signInManager;
+            this.userManager = userManager;
         }
 
         public IActionResult Index()
@@ -83,14 +91,46 @@ namespace BusBooking.Controllers
             seats.bus = this._busRepo.GetBus(id);
             return View(seats);
         }
+
         [HttpPost]
-        public IActionResult BusSelected(FormCollection form)
+        public async Task<IActionResult> BusSelected(IFormCollection form)
         {
-            foreach(var i in form.Keys)
+            var user = await userManager.GetUserAsync(User);
+            var bus_id = Convert.ToInt32(form["bus_id"]);
+            var date = Convert.ToDateTime(form["date"]);
+            var bus = this._busRepo.GetBus(bus_id);
+            List<int> seats = new List<int>();
+            foreach (var i in form["checkbox"])
             {
-                Console.WriteLine(i);
+                seats.Add(Convert.ToInt32(i));
             }
+            foreach (var seatNo in seats)
+            {
+                var newSeat = new Seat()
+                {
+                    Seat_No = seatNo,
+                    date = date,
+                    Bus = bus,
+                    applicationuser = user,
+                };
+                this._seatRepo.Add(newSeat);
+            }
+            Ticket ticket = new Ticket()
+            {
+                applicationuser = user,
+                Bus = bus,
+                Travel_Date = date,
+                Amount = seats.Count() * bus.Price,
+                Seat_Id = string.Join(",", seats),
+            };
+            this._ticketRepo.Add(ticket);
             return View("Index");
+        }
+
+        [HttpGet]
+        public IActionResult SeatSelected()
+        {
+            return View();
         }
     }
 }

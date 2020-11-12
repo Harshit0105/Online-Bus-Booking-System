@@ -22,7 +22,6 @@ namespace BusBooking.Repository
             return seat;
 
         }
-
         Seat ISeatRepository.Delete(int Id)
         {
             Seat seat = context.Seats.Find(Id);
@@ -53,11 +52,11 @@ namespace BusBooking.Repository
             return seatChanges;
         }
 
-        IEnumerable<Seat> ISeatRepository.GetSeatsUsingDateAndBus(DateTime date, int bus_id)
+        IEnumerable<int> ISeatRepository.GetSeatsUsingDateAndBus(DateTime date, int bus_id)
         {
             var seats = this.context.Seats.AsNoTracking()
                 .Where(n => n.Bus.Bus_Id == bus_id && n.date == date)
-                .Select(n => n)
+                .Select(n => n.Seat_No)
                 .ToList();
             return seats;
         }

@@ -9,7 +9,7 @@ namespace BusBooking.ViewModel
     public class SeatViewModel
     {
         public Bus bus { get; set; }
-        public IEnumerable<BusBooking.Models.Seat> seats { get; set; }
+        public IEnumerable<int> seats { get; set; }
         public DateTime dateToTravel { get; set; }
     }
 }

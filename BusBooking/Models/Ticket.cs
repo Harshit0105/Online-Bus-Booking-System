@@ -19,6 +19,7 @@ namespace BusBooking.Models
 
         [ForeignKey("Bus_Id")]
         [Required]
+        public int Bus_Id { get; set; }
         public Bus Bus { get; set; }
 
         [Required]

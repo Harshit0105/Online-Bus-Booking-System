@@ -8,7 +8,6 @@
 @section Styles{
     <link href="~/css/BusSelected.css" type="text/css" rel="stylesheet">
 }
-
 <p>
     <a asp-action="SearchBus">Back</a>
 </p>
@@ -28,15 +27,28 @@
         </li>
     </ul>
     <form asp-action="BusSelected" method="post">
+        <input id="bus_id" type="hidden" name="bus_id" value="@Model.bus.Bus_Id" />
+        <input id="date" type="hidden" name="date" value="@Model.dateToTravel" />
         <div class="containerSeat">
-            <div class="row">
+            <div class="row" id="seats">
                 @for (var i = 1; i <= Model.bus.Number_Of_Seats; i++)
                 {
-                    <div class="seat" style="text-align: center;" onclick="checkedFun(@i)" id="@i"><input id="@i" style="display:none" type="checkbox" /><p style="color:white;margin:auto;">@i</p></div>
+                    if (Model.seats.Contains(i))
+                    {
+                        <div class="seat occupied" style="text-align: center;"  id="@i">
+                            <input id="@i" type="checkbox" disabled checked value="@i"  name="checkbox"><p>@i</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="seat" style="text-align: center;" id="@i">
+                        <input id="@i" type="checkbox" value="@i" name="checkbox" onclick="checkedFun(@i)"><p style="color:white">@i</p>
+                        </div>
+                    }
                 }
             </div>
         </div>
-        <button class="btn btn-block btn-primary" type="submit">Confirm</button>
+        <button id="seatConfirm" type="submit" class="btn btn-block btn-primary">Confirm</button>
     </form>
 }
 @section Scripts{ 

@@ -6,7 +6,7 @@ using BusBooking.Models;
 
 namespace BusBooking.Repository
 {
-    interface ITicketRepository
+    public interface ITicketRepository
     {
         Ticket GetTicket(int Id);
 

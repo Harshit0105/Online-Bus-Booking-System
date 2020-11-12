@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusBooking.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201019114845_BusTableUpdate")]
-    partial class BusTableUpdate
+    [Migration("20201112145328_TableUpdated")]
+    partial class TableUpdated
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -172,8 +172,10 @@ namespace BusBooking.Migrations
                     b.Property<float>("Amount")
                         .HasColumnType("real");
 
-                    b.Property<int?>("Bus_Id")
-                        .IsRequired()
+                    b.Property<int>("Bus_Id")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Bus_Id1")
                         .HasColumnType("int");
 
                     b.Property<string>("Seat_Id")
@@ -189,7 +191,7 @@ namespace BusBooking.Migrations
 
                     b.HasKey("Ticket_Id");
 
-                    b.HasIndex("Bus_Id");
+                    b.HasIndex("Bus_Id1");
 
                     b.HasIndex("UserId");
 
@@ -346,9 +348,7 @@ namespace BusBooking.Migrations
                 {
                     b.HasOne("BusBooking.Models.Bus", "Bus")
                         .WithMany()
-                        .HasForeignKey("Bus_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Bus_Id1");
 
                     b.HasOne("BusBooking.Models.ApplicationUser", "applicationuser")
                         .WithMany()
