@@ -59,11 +59,13 @@ namespace BusBooking.Controllers
                 SourceCity = sourceCity,
                 DestinationCity=destinationCity,
             };
+            
+
             Console.WriteLine(sourceCity);
             return View(busSearch);
         }
         [HttpPost]
-        public IActionResult SearchBus(BusSearchViewModel model)
+        public IActionResult SearchBus(BusSearchViewModel model,string Scity,string Dcity)
         {
             if (ModelState.IsValid)
             {
@@ -71,14 +73,20 @@ namespace BusBooking.Controllers
                 var busFoundModel =new BusFoundViewModel();
                 busFoundModel.busFound = busFound;
                 busFoundModel.dateToTravel = model.DateToTravel;
+                busFoundModel.SourceCity = Scity;
+                busFoundModel.DestinationCity = Dcity;
                 return View("BusFound",busFoundModel);
             }
             return View(model);
         }
         [HttpGet]
-        public IActionResult BusFound()
+        public IActionResult BusFound(string Scity, string Dcity)
         {
-            return View();
+            BusFoundViewModel busFound = new BusFoundViewModel();
+            busFound.SourceCity = Scity;
+            busFound.DestinationCity = Dcity;
+          
+            return View(busFound);
         }
         [HttpGet]
         public IActionResult BusSelected(string date,int id)

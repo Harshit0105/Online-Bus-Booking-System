@@ -9,5 +9,7 @@ namespace BusBooking.ViewModel
     {
         public IEnumerable<BusBooking.Models.Bus> busFound { get; set; }
         public DateTime dateToTravel { get; set; }
+        public string SourceCity { get; set; }
+        public string DestinationCity { get; set; }
     }
 }
