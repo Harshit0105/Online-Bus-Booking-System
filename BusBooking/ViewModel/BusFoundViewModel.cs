@@ -8,6 +8,6 @@ namespace BusBooking.ViewModel
     public class BusFoundViewModel
     {
         public IEnumerable<BusBooking.Models.Bus> busFound { get; set; }
-        public DateTime? dateToTravel { get; set; }
+        public DateTime dateToTravel { get; set; }
     }
 }

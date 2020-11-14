@@ -16,15 +16,17 @@
             <div class="form-group">
                 @Html.LabelFor(x => Model.SelectedSourceCity, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md">
-                    @Html.DropDownListFor(x => Model.SelectedSourceCity, new SelectList(Model.SourceCity, "Value", "Text"), htmlAttributes: new { @class = "form-control", id = "SourceCity" })
-                    @Html.ValidationMessageFor(x => x.SelectedSourceCity, "", new { @class = "text-danger" })
+                    @Html.DropDownListFor(x => x.SelectedSourceCity, new SelectList(Model.SourceCity, "Value", "Text"), htmlAttributes: new { @class = "form-control", id = "SourceCity" })
+                    @Html.ValidationMessageFor(x => x.SelectedSourceCity,"" , new { @class = "text-danger" })
                 </div>
+
+                <!-- <span asp-validation-for="SelectedSourceCity" class="text-danger"></span>-->
             </div>
             <div class="form-group">
                 @Html.LabelFor(x => Model.SelectedDestinationCity, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md">
                     @Html.DropDownListFor(x => Model.SelectedDestinationCity, new SelectList(Model.DestinationCity, "Value", "Text"), htmlAttributes: new { @class = "form-control", id = "DestinationCity" })
-                    @Html.ValidationMessageFor(x => x.SelectedDestinationCity, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(x => x.SelectedDestinationCity,"", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group">

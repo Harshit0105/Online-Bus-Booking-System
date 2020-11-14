@@ -10,18 +10,18 @@ namespace BusBooking.ViewModel
 {
     public class BusSearchViewModel
     {
-        [Required]
+        [Required(ErrorMessage ="Please Select Source City")]
         [Display(Name = "From")]
         public string SelectedSourceCity { get; set; }
         public IEnumerable<SelectListItem> SourceCity { get; set; }
 
 
-        [Required]
+        [Required(ErrorMessage = "Please Select Destination City")]
         [Display(Name = "To")]
         public string SelectedDestinationCity { get; set; }
         public IEnumerable<SelectListItem> DestinationCity { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please Select Date for travel")]
         [Display(Name = "Date")]
         public DateTime DateToTravel { get; set; }
     }

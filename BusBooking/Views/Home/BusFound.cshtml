@@ -7,13 +7,56 @@
 @{
     Layout = "_LayoutHome";
 }
+<style>
+    .time {
+        display: inline-block;
+    }
+
+    .inline1 {
+        display: inline-block;
+    }
+
+    #Dborder {
+        border-radius: 25px;
+        border: 2px solid #73AD21;
+        padding: 20px;
+        height: auto;
+        width: 700px;
+    }
+
+    #dest_time {
+    }
+
+    #travel_Time {
+        border-bottom: 1px solid red;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+
+    #price {
+        padding-left: 250px;
+    }
+
+    #book {
+        padding-left: 300px;
+       
+    }
+</style>
+
 <p>
     <a asp-action="SearchBus">Back</a>
 </p>
+
+@{ 
+
+    DateTime date = Model.dateToTravel;
+
+}
+
 <p>
-    Date: @Model.dateToTravel.ToString();
+    Date: @date.ToString("d")
 </p>
-<table class="table">
+<!---<table class="table">
     <thead>
         <tr>
             <th>
@@ -27,7 +70,7 @@
             </th>
             <th>
                 Destination City
-            </th>          
+            </th>
             <th>
                 Departure Time
             </th>
@@ -43,38 +86,29 @@
             <th></th>
         </tr>
     </thead>
-    <tbody>
-        @foreach (var item in Model.busFound)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Bus_Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Bus_No)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Souce_City)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Destination_City)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Source_Time.TimeOfDay)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Destination_Time.TimeOfDay)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Bus_Type)
-                </td>
-                <td>
-                    <a asp-action="BusSelected" asp-route-id=@item.Bus_Id asp-route-date=@Model.dateToTravel>Book Now</a>
-                </td>
-            </tr>
+    <tbody>-->
+@foreach (var item in Model.busFound)
+{
+<div id="Dborder" style="border:2px solid black">
+    <h3 style="padding-left:20px;">@Html.DisplayFor(modelItem => item.Bus_Name)</h3>
+
+    <p style="padding-left:20px;" class="inline1">@Html.DisplayFor(modelItem => item.Bus_Type)</p>
+    <a  id="book" class="inline1" asp-action="BusSelected" asp-route-id=@item.Bus_Id asp-route-date=@Model.dateToTravel>Book Now</a>
+    <!--<button id="book" type="submit" class=" inline1" asp-action="BusSelected" asp-route-id=@item.Bus_Id asp-route-date=@Model.dateToTravel>Book Now</button>-->
+    <br />
+    <br />
+    @{
+        DateTime sTime = item.Source_Time;
+        DateTime dTime = item.Destination_Time;
+
+        TimeSpan tTime = dTime.Subtract(sTime);
+    }
+    <h6 class="time" style="padding-left:20px;">@sTime.ToString("HH:mm tt")</h6>
+    <h7 class="time" id="travel_Time">@tTime</h7>
+    <h6 class="time" id="dest_time">@dTime.ToString("HH:mm tt")</h6>
+    <h6 class="time" id="price">@Html.DisplayFor(modelItem => item.Price)</h6>
+</div>
+            <p></p>
         }
-        </tbody>
-</table>
+        <!--</tbody
+        </table>-->
