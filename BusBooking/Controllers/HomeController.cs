@@ -140,5 +140,12 @@ namespace BusBooking.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public IActionResult ViewTicket()
+        {
+            return View();
+        }
+
     }
 }
