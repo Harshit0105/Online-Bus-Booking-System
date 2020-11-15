@@ -124,7 +124,7 @@ namespace BusBooking.Controllers
                     Bus = bus,
                     applicationuser = user,
                 };
-               //ticketViewModel.seats.Add(newSeat);
+               ticketViewModel.seats.Add(newSeat);
                 this._seatRepo.Add(newSeat);
             }
             Ticket ticket = new Ticket()
@@ -135,8 +135,9 @@ namespace BusBooking.Controllers
                 Amount = seats.Count() * bus.Price,
                 Seat_Id = string.Join(",", seats),
             };
+            ticketViewModel.ticket = ticket;
             this._ticketRepo.Add(ticket);
-            return View("Index");
+            return View("ViewTicket",ticketViewModel);
         }
         [HttpGet]
         public IActionResult DeleteTicket(int id)
@@ -153,11 +154,6 @@ namespace BusBooking.Controllers
 
         [HttpGet]
         public IActionResult ViewTicket()
-        {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult ViewTicket(TicketConfirmViewModel model)
         {
             return View();
         }
