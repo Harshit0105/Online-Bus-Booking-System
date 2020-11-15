@@ -123,16 +123,17 @@ namespace BusBooking.Controllers
                 };
                 this._seatRepo.Add(newSeat);
             }
-            Ticket ticket = new Ticket()
-            {
-                applicationuser = user,
-                Bus = bus,
-                Travel_Date = date,
-                Amount = seats.Count() * bus.Price,
-                Seat_Id = string.Join(",", seats),
-            };
-            this._ticketRepo.Add(ticket);
-            return View("Index");
+             Ticket ticket = new Ticket()
+             {
+                 applicationuser = user,
+                 Bus = bus,
+                 Travel_Date = date,
+                 Amount = seats.Count() * bus.Price,
+                 Seat_Id = string.Join(",", seats),
+             };
+            // this._ticketRepo.Add(ticket);
+            //return View("Index");
+            return View("ViewTicket", ticket);
         }
 
         [HttpGet]

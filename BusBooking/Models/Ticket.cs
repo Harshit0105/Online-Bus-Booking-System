@@ -23,6 +23,7 @@ namespace BusBooking.Models
         public Bus Bus { get; set; }
 
         [Required]
+        [Display(Name = "Date of journey")]
         public DateTime Travel_Date { get; set; }
 
         [Required]

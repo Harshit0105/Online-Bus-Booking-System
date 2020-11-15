@@ -1,42 +1,112 @@
 ﻿@model BusBooking.Models.Ticket
 
 @{
-    ViewData["Title"] = "ViewTicket";
+   // ViewData["Title"] = "ViewTicket";
 }
-
-<h1>ViewTicket</h1>
-
-<div>
-    <h4>Ticket</h4>
-    <hr />
+<style>
+    .inline1 {
+        display: inline-block;
+    }
+</style>
+<h2>E-Ticket Booking Details</h2>
+<br />
+<div class="inline1">
+    <h4>Travel Information</h4>
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Bus_Id)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Bus.Bus_Name)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Bus_Id)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Bus.Bus_Name)
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Bus.Bus_Type)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Bus.Bus_Type)
+        </dd>
+
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Travel_Date)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Travel_Date)
+        <dd class="col-sm-10">
+            @{
+                DateTime date = Model.Travel_Date;
+            }
+            @date.ToString("d")
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-2">
+            Boarding From
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Bus.Souce_City)
+        </dd>
+
+        <dt class="col-sm-2">
+            To
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Bus.Destination_City)
+        </dd>
+
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Seat_Id)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Seat_Id)
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Amount)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Amount)
+        </dd>
+
+    </dl>
+</div>
+<div class="inline1">
+    <h4>Passenger Details</h4>
+
+    <!--<dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.applicationuser.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.applicationuser.Email)
+        </dd>
+    </dl>-->
+</div>
+   <!-- <dl class="row">
+          <dt class = "col-sm-2">
+          Html.DisplayNameFor(model => model.Bus_Id)
+       </dt>
+       <dd class = "col-sm-10">
+           Html.DisplayFor(model => model.Bus_Id)
+        </dd>
+        <dt class="col-sm-2">
+            Html.DisplayNameFor(model => model.Travel_Date)
+        </dt>
+        <dd class="col-sm-10">
+            Html.DisplayFor(model => model.Travel_Date)
+        </dd>
+        <dt class="col-sm-2">
+            Html.DisplayNameFor(model => model.Seat_Id)
+        </dt>
+        <dd class="col-sm-10">
+            Html.DisplayFor(model => model.Seat_Id)
+        </dd>
+        <dt class="col-sm-2">
+            Html.DisplayNameFor(model => model.Amount)
+        </dt>
+        <dd class="col-sm-10">
+            Html.DisplayFor(model => model.Amount)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Ticket_Id">Edit</a> |
+     <a asp-action="Edit" asp-route-id="Model.Ticket_Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
-</div>
+</div>-->

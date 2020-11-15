@@ -21,6 +21,7 @@ namespace BusBooking.Models
         public int Bus_Id { get; set; }
 
         [Required]
+        [Display(Name ="Bus Name")]
         public string Bus_Name { get; set; }
         [Required]
         public string Bus_No { get; set; }
