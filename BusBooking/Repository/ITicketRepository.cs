@@ -17,6 +17,6 @@ namespace BusBooking.Repository
         Ticket Update(Ticket ticketChanges);
 
         IEnumerable<Ticket> GetAllTickets();
-
+        IEnumerable<Ticket> GetAllTicketsByUser(ApplicationUser user);
     }
 }
