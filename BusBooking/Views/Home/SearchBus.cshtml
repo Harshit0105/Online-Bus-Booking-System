@@ -37,6 +37,7 @@
                 </div>
             </div>
             <div class="form-group">
+                @Html.ValidationSummary()
                 <input type="submit" value="Search" class="btn btn-primary"  asp-route-Scity=@Model.SelectedSourceCity  asp-route-Dcity=@Model.SelectedDestinationCity />
             </div>
         </form>

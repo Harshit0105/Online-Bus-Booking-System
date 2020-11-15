@@ -13,12 +13,15 @@ namespace BusBooking.ViewModel
         [Required(ErrorMessage ="Please Select Source City")]
         [Display(Name = "From")]
         public string SelectedSourceCity { get; set; }
+      
         public IEnumerable<SelectListItem> SourceCity { get; set; }
 
 
         [Required(ErrorMessage = "Please Select Destination City")]
         [Display(Name = "To")]
+        //[Compare(nameof(SelectedSourceCity),ErrorMessage ="Source City and destination city cannot be match.")]
         public string SelectedDestinationCity { get; set; }
+       
         public IEnumerable<SelectListItem> DestinationCity { get; set; }
 
         [Required(ErrorMessage = "Please Select Date for travel")]

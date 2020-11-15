@@ -76,9 +76,21 @@ namespace BusBooking.Controllers
                 busFoundModel.dateToTravel = model.DateToTravel;
                 busFoundModel.SourceCity = model.SelectedSourceCity;
                 busFoundModel.DestinationCity = model.SelectedDestinationCity;
-                return View("BusFound",busFoundModel);
+                /*if(busFoundModel.SourceCity.Equals(busFoundModel.DestinationCity)
+                    {
+                    ErrorMessage = "Source City and Destination city cannot be same";
+                }
+                else
+                {*/
+                    return View("BusFound", busFoundModel);
+                //}
+               
             }
-            return View(model);
+            else
+            {
+                return View(model);
+            }
+           
         }
         [HttpGet]
         public IActionResult BusFound(string Scity, string Dcity)
@@ -135,9 +147,9 @@ namespace BusBooking.Controllers
                 Amount = seats.Count() * bus.Price,
                 Seat_Id = string.Join(",", seats),
             };
-            ticketViewModel.ticket = ticket;
+            //  ticketViewModel.ticket = ticket;
             this._ticketRepo.Add(ticket);
-            return View("ViewTicket",ticketViewModel);
+            return View("ViewTicket", ticket);
         }
         [HttpGet]
         public IActionResult DeleteTicket(int id)

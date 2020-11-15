@@ -40,6 +40,7 @@ namespace BusBooking.Models
         [Required]
         public Boolean Available { get; set; }
         [Required]
+        [Display(Name = "Bus Type")]
         public B_Type Bus_Type { get; set; }
     }
 }
