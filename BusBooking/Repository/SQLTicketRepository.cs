@@ -4,6 +4,7 @@ using BusBooking.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace BusBooking.Repository
 {
@@ -49,6 +50,13 @@ namespace BusBooking.Repository
         IEnumerable<Ticket> ITicketRepository.GetAllTickets()
         {
             return context.Tickets;
+        }
+
+        IEnumerable<Ticket> ITicketRepository.GetAllTicketsByUser(ApplicationUser user)
+        {
+            return this.context.Tickets.AsNoTracking()
+                .Where(t => t.applicationuser == user)
+                .Select(t => t).ToList();
         }
     }
 }

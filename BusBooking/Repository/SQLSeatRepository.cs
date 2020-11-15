@@ -33,6 +33,26 @@ namespace BusBooking.Repository
             return seat;
         }
 
+        void ISeatRepository.DeleteSeats(Ticket t)
+        {
+            List<string> seatNo=t.Seat_Id.Split(',').ToList();
+            List<Seat> seats = this.context.Seats.AsNoTracking()
+                .Where(s => s.date == t.Travel_Date && s.Bus.Bus_Id == t.Bus_Id)
+                .Select(s => s).ToList();
+            foreach(var s in seats)
+            {
+                if (seatNo.Contains(s.Seat_No.ToString()))
+                {
+                    Seat seat = context.Seats.Find(s.SeatId);
+                    if (seat != null)
+                    {
+                        context.Seats.Remove(seat);
+                        context.SaveChanges();
+                    }
+                }
+            }
+        }
+
 
         Seat ISeatRepository.GetSeat(int Id)
         {

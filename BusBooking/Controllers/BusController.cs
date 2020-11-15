@@ -4,10 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using BusBooking.Models;
 using BusBooking.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BusBooking.Controllers
 {
+    [Authorize(Roles ="Admin")]
     public class BusController : Controller
     {
         private readonly IBusRepository _busRepo;

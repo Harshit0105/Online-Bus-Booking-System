@@ -13,7 +13,7 @@ namespace BusBooking.Repository
         Seat Add(Seat seat);
 
         Seat Delete(int Id);
-
+        void DeleteSeats(Ticket t);
         Seat Update(Seat seatChanges);
 
         IEnumerable<Seat> GetAllSeats();

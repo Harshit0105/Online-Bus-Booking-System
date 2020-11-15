@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace BusBooking.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
 
@@ -65,7 +66,7 @@ namespace BusBooking.Controllers
             return View(busSearch);
         }
         [HttpPost]
-        public IActionResult SearchBus(BusSearchViewModel model,string Scity,string Dcity)
+        public IActionResult SearchBus(BusSearchViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -73,8 +74,8 @@ namespace BusBooking.Controllers
                 var busFoundModel =new BusFoundViewModel();
                 busFoundModel.busFound = busFound;
                 busFoundModel.dateToTravel = model.DateToTravel;
-                busFoundModel.SourceCity = Scity;
-                busFoundModel.DestinationCity = Dcity;
+                busFoundModel.SourceCity = model.SelectedSourceCity;
+                busFoundModel.DestinationCity = model.SelectedDestinationCity;
                 return View("BusFound",busFoundModel);
             }
             return View(model);
@@ -108,6 +109,8 @@ namespace BusBooking.Controllers
             var date = Convert.ToDateTime(form["date"]);
             var bus = this._busRepo.GetBus(bus_id);
             List<int> seats = new List<int>();
+            var ticketViewModel = new TicketConfirmViewModel();
+            ticketViewModel.bus = bus;
             foreach (var i in form["checkbox"])
             {
                 seats.Add(Convert.ToInt32(i));
@@ -121,6 +124,7 @@ namespace BusBooking.Controllers
                     Bus = bus,
                     applicationuser = user,
                 };
+               //ticketViewModel.seats.Add(newSeat);
                 this._seatRepo.Add(newSeat);
             }
             Ticket ticket = new Ticket()
@@ -131,10 +135,17 @@ namespace BusBooking.Controllers
                 Amount = seats.Count() * bus.Price,
                 Seat_Id = string.Join(",", seats),
             };
+            //ticketViewModel.ticket = ticket;
             this._ticketRepo.Add(ticket);
             return View("Index");
         }
-
+        [HttpGet]
+        public IActionResult DeleteTicket(int id)
+        {
+            Ticket t = this._ticketRepo.GetTicket(id);
+            this._seatRepo.DeleteSeats(t);
+            return View("Index");
+        }
         [HttpGet]
         public IActionResult SeatSelected()
         {
@@ -146,6 +157,18 @@ namespace BusBooking.Controllers
         {
             return View();
         }
-
+        [HttpPost]
+        public IActionResult ViewTicket(TicketConfirmViewModel model)
+        {
+            return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> AllTicket()
+        {
+            IEnumerable<Ticket> tickets = new List<Ticket>();
+            ApplicationUser user = await userManager.GetUserAsync(User);
+            tickets = this._ticketRepo.GetAllTicketsByUser(user);
+            return View(tickets);
+        }
     }
 }

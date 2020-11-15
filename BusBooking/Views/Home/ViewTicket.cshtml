@@ -1,4 +1,4 @@
-﻿@model BusBooking.Models.Ticket
+﻿@model BusBooking.ViewModel.TicketConfirmViewModel
 
 @{
     ViewData["Title"] = "ViewTicket";
@@ -10,33 +10,35 @@
     <h4>Ticket</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Bus_Id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Bus_Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Travel_Date)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Travel_Date)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Seat_Id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Seat_Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Amount)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Amount)
-        </dd>
+        <form asp-action="ViewTicket" method="post" asp-controller="Home">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.bus.Bus_Name)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.bus.Bus_Name)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ticket.Travel_Date)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ticket.Travel_Date)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ticket.Seat_Id)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ticket.Seat_Id)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ticket.Amount)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ticket.Amount)
+            </dd>
+            <button class="btn btn-block btn-primary" type="submit">Confirm Booking</button>
+        </form>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Ticket_Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" style="color:red;">Cancle</a>
 </div>
