@@ -80,8 +80,8 @@ namespace BusBooking.Repository
            .Select(n =>
            new SelectListItem
            {
-               Value = n.Destination_City.ToString(),
-               Text = n.Destination_City.ToString(),
+               Value = n.Destination_City.ToString().ToUpper(),
+               Text = n.Destination_City.ToString().ToUpper(),
            }).ToList();
             var destinationtip = new SelectListItem()
             {
