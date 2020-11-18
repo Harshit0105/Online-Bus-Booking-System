@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BusBooking.Models.Ticket>
+﻿@model BusBooking.ViewModel.TicketListViewModel
 
 @{
     ViewData["Title"] = "AllTicket";
@@ -6,19 +6,19 @@
 @{
     Layout = "_LayoutHome";
 }
-<h1>AllTicket</h1>
+<h1>Tickets</h1>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Travel_Date)
+                Date of journey
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Bus.Bus_Name)
+                Bus Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Bus.Bus_Type)
+                Bus Type
             </th>
             <th>
                 From
@@ -30,45 +30,38 @@
                 Seats
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Amount)
+               Amount
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.tickets.Select((value,i)=>new { i,value}))
         {
         <tr>
             <td>
                 @{
-                    DateTime date = item.Travel_Date;
+                    DateTime date = item.value.Travel_Date;
                 }
                 @date.ToString("d")
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Bus.Bus_Name)
+                @Html.DisplayFor(modelItem => Model.buses[item.i].Bus_Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Bus.Bus_Type)
+                @Html.DisplayFor(modelItem => Model.buses[item.i].Bus_Type)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Bus.Souce_City)
+                @Html.DisplayFor(modelItem => Model.buses[item.i].Souce_City)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Bus.Destination_City)
+                @Html.DisplayFor(modelItem => Model.buses[item.i].Destination_City)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Seat_Id)
+                @Html.DisplayFor(modelItem => item.value.Seat_Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Amount)
+                @Html.DisplayFor(modelItem => item.value.Amount)
             </td>
-            @if (item.Travel_Date.CompareTo(DateTime.Now) > 0)
-            {
-                <!--<td>
-            <a asp-action="DeleteTicket" asp-route-id="@item.Ticket_Id">Delete</a>
-        </td>-->
-            }
         </tr>
         }
     </tbody>

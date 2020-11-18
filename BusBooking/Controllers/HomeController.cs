@@ -143,6 +143,7 @@ namespace BusBooking.Controllers
             {
                 applicationuser = user,
                 Bus = bus,
+                Bus_Id=bus.Bus_Id,
                 Travel_Date = date,
                 Amount = seats.Count() * bus.Price,
                 Seat_Id = string.Join(",", seats),
@@ -172,10 +173,17 @@ namespace BusBooking.Controllers
         [HttpGet]
         public async Task<IActionResult> AllTicket()
         {
+            TicketListViewModel ticketListViewModel = new TicketListViewModel();
             IEnumerable<Ticket> tickets = new List<Ticket>();
             ApplicationUser user = await userManager.GetUserAsync(User);
             tickets = this._ticketRepo.GetAllTicketsByUser(user);
-            return View(tickets);
+            ticketListViewModel.tickets = (List<Ticket>)tickets;
+            foreach(var i in tickets)
+            {
+                Bus bus = this._busRepo.GetBus(i.Bus_Id);
+                ticketListViewModel.buses.Add(bus);
+            }
+            return View(ticketListViewModel);
         }
     }
 }
