@@ -1,16 +1,16 @@
-﻿using System;
+﻿using BusBooking.Models;
+using BusBooking.Repository;
+using BusBooking.ViewModel;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using BusBooking.Models;
-using BusBooking.ViewModel;
-using Microsoft.AspNetCore.Authorization;
-using BusBooking.Repository;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 
 namespace BusBooking.Controllers
 {
@@ -25,7 +25,7 @@ namespace BusBooking.Controllers
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public HomeController(ITicketRepository ticketRepo,ILogger<HomeController> logger,IBusRepository busrepo, ISeatRepository seatrepo, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
+        public HomeController(ITicketRepository ticketRepo, ILogger<HomeController> logger, IBusRepository busrepo, ISeatRepository seatrepo, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
         {
             this._logger = logger;
             this._busRepo = busrepo;
@@ -58,9 +58,9 @@ namespace BusBooking.Controllers
             var busSearch = new BusSearchViewModel()
             {
                 SourceCity = sourceCity,
-                DestinationCity=destinationCity,
+                DestinationCity = destinationCity,
             };
-            
+
 
             Console.WriteLine(sourceCity);
             return View(busSearch);
@@ -71,7 +71,7 @@ namespace BusBooking.Controllers
             if (ModelState.IsValid)
             {
                 var busFound = this._busRepo.GetBusesByCity(model.SelectedSourceCity, model.SelectedDestinationCity);
-                var busFoundModel =new BusFoundViewModel();
+                var busFoundModel = new BusFoundViewModel();
                 busFoundModel.busFound = busFound;
                 busFoundModel.dateToTravel = model.DateToTravel;
                 busFoundModel.SourceCity = model.SelectedSourceCity;
@@ -82,15 +82,15 @@ namespace BusBooking.Controllers
                 }
                 else
                 {*/
-                    return View("BusFound", busFoundModel);
+                return View("BusFound", busFoundModel);
                 //}
-               
+
             }
             else
             {
                 return View(model);
             }
-           
+
         }
         [HttpGet]
         public IActionResult BusFound(string Scity, string Dcity)
@@ -98,11 +98,11 @@ namespace BusBooking.Controllers
             BusFoundViewModel busFound = new BusFoundViewModel();
             busFound.SourceCity = Scity;
             busFound.DestinationCity = Dcity;
-          
+
             return View(busFound);
         }
         [HttpGet]
-        public IActionResult BusSelected(string date,int id)
+        public IActionResult BusSelected(string date, int id)
         {
             SeatViewModel seats = new SeatViewModel();
             var dateToTravel = Convert.ToDateTime(date);
@@ -136,14 +136,14 @@ namespace BusBooking.Controllers
                     Bus = bus,
                     applicationuser = user,
                 };
-               ticketViewModel.seats.Add(newSeat);
+                ticketViewModel.seats.Add(newSeat);
                 this._seatRepo.Add(newSeat);
             }
             Ticket ticket = new Ticket()
             {
                 applicationuser = user,
                 Bus = bus,
-                Bus_Id=bus.Bus_Id,
+                Bus_Id = bus.Bus_Id,
                 Travel_Date = date,
                 Amount = seats.Count() * bus.Price,
                 Seat_Id = string.Join(",", seats),
@@ -178,7 +178,7 @@ namespace BusBooking.Controllers
             ApplicationUser user = await userManager.GetUserAsync(User);
             tickets = this._ticketRepo.GetAllTicketsByUser(user);
             ticketListViewModel.tickets = (List<Ticket>)tickets;
-            foreach(var i in tickets)
+            foreach (var i in tickets)
             {
                 Bus bus = this._busRepo.GetBus(i.Bus_Id);
                 ticketListViewModel.buses.Add(bus);

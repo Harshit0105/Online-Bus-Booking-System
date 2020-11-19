@@ -98,7 +98,7 @@ namespace BusBooking.Controllers
                     Bus_Name=model.Bus_Name
                 };
                 _busRepo.Add(newBus);
-                Bus newBus2 = new Bus
+             /*   Bus newBus2 = new Bus
                 {
                     Souce_City = model.Destination_City.ToUpper(),
                     Destination_City = model.Souce_City.ToUpper(),
@@ -111,7 +111,7 @@ namespace BusBooking.Controllers
                     Bus_No = model.Bus_No,
                     Bus_Name = model.Bus_Name
                 };
-                _busRepo.Add(newBus2);
+                _busRepo.Add(newBus2);*/
                 return RedirectToAction("index");
             }
             return View();
